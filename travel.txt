@@ -1,0 +1,5 @@
+Airport: Аэропорт
+Railway station: Вокзал
+Hotel: Отель
+Ticket: Билет
+Gate: Выход на посадку

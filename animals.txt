@@ -1,0 +1,5 @@
+Cat: Котик
+Dog: Собачка
+Sheep: Овечка
+Hamster: Хомяк
+Turtle: Черепаха
