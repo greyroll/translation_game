@@ -63,21 +63,29 @@ class Question:
 		self.__was_asked = True
 
 	def get_answer(self):
-		print("Введи номер правильного ответа:")
-		user_answer = None
-		try:
-			user_answer = int(input())
-		except ValueError:
-			print("Это не цифра")
-		return user_answer
+		while True:
+			print("Введи номер правильного ответа:")
+			try:
+				user_answer = int(input())
+				if 1 <= user_answer <= len(self.options_list):
+					return user_answer
+				else:
+					print(f"Неверное значение, введи число от 1 до {len(self.options_list)}.")
+			except ValueError:
+				print("Это не цифра, введи число.")
 
 	def check_answer_give_fb(self, user_answer):
 		for number, option in self.options.items():
 			if number == user_answer:
 				if option == self.answer:
 					print("Это верный ответ!")
+					return True
 				else:
 					print(f"Неверно! Правильный ответ {self.answer}")
 
 	def was_asked(self) -> bool:
 		return self.__was_asked
+
+class User:
+	def __init__(self):
+		self.points = 0

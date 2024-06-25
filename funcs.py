@@ -1,11 +1,6 @@
-# def beautiful_input() -> str:
-# 	user_input = input(" ")
-# 	user_input = user_input.strip()
-# 	user_input = user_input.lower()
-# 	return user_input
 import random
 
-from classes import QuestionTextLoader, QuestionJSONLoader, Question
+from classes import QuestionTextLoader, QuestionJSONLoader, Question, User
 
 
 def intro():
@@ -50,12 +45,14 @@ def txt_or_json(path) -> QuestionTextLoader | QuestionJSONLoader:
 
 
 def run_round(questions: list[Question]):
+	user = User()
 	counter = 0
 	while counter < len(questions):
 		question = random.choice(questions)
 		if question.was_asked():
 			continue
 		question.build_question()
-		# user_answer =
-		question.check_answer_give_fb(question.get_answer())
+		if question.check_answer_give_fb(question.get_answer()):
+			user.points += 10
 		counter += 1
+	print(f"Вы набрали {user.points} очков.")
