@@ -1,7 +1,9 @@
 import json
 
+# TODO вынести в classes/question_loaders
 
 class QuestionTextLoader:
+
 	def __init__(self, path):
 		self.path = path
 
@@ -34,13 +36,14 @@ class QuestionJSONLoader(QuestionTextLoader):
 		data = self.read()
 		questions: list[Question] = []
 		options = []
+		#TODO проверять ключи в dictionary, если нет нужных то ругаться и пропускать вопрос
 		for dictionary in data:
 			options.append(dictionary["translation"])
 		for dictionary in data:
 			questions.append(Question(question=dictionary["word"], answer=dictionary["translation"], options=options))
 		return questions
 
-
+# TODO вынести question в отдельный файл classes/question
 class Question:
 	def __init__(self, question: str, answer: str, options: list[str]):
 		self.question = question
@@ -57,6 +60,7 @@ class Question:
 		return f"Question(question={self.question}, answer={self.answer}, options={self.options_list})"
 
 	def build_question(self):
+		# TODO заменить принты на ретурны
 		print(self.question)
 		for key, value in self.options.items():
 			print(f"{key}. {value}")
@@ -75,6 +79,9 @@ class Question:
 				print("Это не цифра, введи число.")
 
 	def check_answer_give_fb(self, user_answer):
+		# TODO заменить принты на возврат словарь {result: True/False , [comment: "верный ответ другой"]}
+		# Или можно сделать класс QuestionFeedback с полями is_correct, comment
+		# Или можно возващать true / raise IncorrectAnswerException( текст ошибки - неверно)
 		for number, option in self.options.items():
 			if number == user_answer:
 				if option == self.answer:
@@ -86,6 +93,7 @@ class Question:
 	def was_asked(self) -> bool:
 		return self.__was_asked
 
+# TODO вынести в отдельный файл
 class User:
 	def __init__(self):
 		self.points = 0
